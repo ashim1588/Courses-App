@@ -1,13 +1,30 @@
 import React from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {Button, FlatList, Linking, View} from 'react-native';
 import courses from '../data/courses.json';
+
+const handleClick = link => {
+  Linking.canOpenURL(link).then(supported => {
+    if (supported) {
+      Linking.openURL(link);
+    } else {
+      console.log("Can't open URL:" + link);
+    }
+  });
+};
 
 const App = () => {
   return (
     <View>
       <FlatList
         data={courses}
-        renderItem={({item}) => <Text>{item.title}</Text>}
+        renderItem={({item}) => (
+          <Button
+            onPress={() => {
+              handleClick(item.link);
+            }}
+            title="Tap to view course"
+          />
+        )}
       />
     </View>
   );
