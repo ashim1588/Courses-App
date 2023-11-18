@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, FlatList, Linking, View} from 'react-native';
 import courses from '../data/courses.json';
+import {Text} from 'react-native-paper';
 
 const handleClick = link => {
   Linking.canOpenURL(link).then(supported => {
@@ -18,12 +19,15 @@ const App = () => {
       <FlatList
         data={courses}
         renderItem={({item}) => (
-          <Button
-            onPress={() => {
-              handleClick(item.link);
-            }}
-            title="Tap to view course"
-          />
+          <View>
+            <Button
+              onPress={() => {
+                handleClick(item.link);
+              }}
+              title="Tap to view course"
+            />
+            <Text>{item.title}</Text>
+          </View>
         )}
       />
     </View>
